@@ -1,11 +1,10 @@
 {
-    "name": "asb/status",
+    "name": "asb/morphtomany",
     "description": "This package is about assigning status to models in Laravel.",
-    "type": "package",
+    "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.0",
-        "laravel/framework": ">=8.0"
+        "php": ">=8.0"
     },
     "authors": [
         {
@@ -16,17 +15,19 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ASB\\Status\\Providers\\StatusServiceProvider"
+                "ASB\\MorphToMany\\Providers\\MTMServiceProvider"
             ],
             "aliases": {
-                "AsbStatus": "ASB\\Status\\Facades\\AsbStatus"
+
             }
         }
     },
     "autoload": {
         "psr-4": {
-            "ASB\\Status\\": "src/"
+            "ASB\\MorphToMany\\": "src/"
         }
     },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "version": "1.0.0"
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ASB\Status\App;
+namespace ASB\MorphToMany\Utility;
 
 class AsbClassMap
 {

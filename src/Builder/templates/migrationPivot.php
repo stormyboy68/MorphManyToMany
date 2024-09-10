@@ -1,4 +1,5 @@
 <?php
+return '<?php'."
 
 namespace database\migrations;
 
@@ -12,9 +13,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('statusables', function (Blueprint $table) {
-            $table->foreignId("status_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->morphs('statusable');
+        Schema::create('".strtolower($pluralRelation)."', function (Blueprint \$table) {
+            \$table->foreignId(\"".strtolower($model)."_id\")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            \$table->morphs('".strtolower($relationName)."');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('statusables');
+        Schema::dropIfExists('".strtolower($pluralRelation)."');
     }
 };
+";
