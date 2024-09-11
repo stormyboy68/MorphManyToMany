@@ -9,7 +9,6 @@ class CommandBuilder
 {
     public static function handle($values)
     {
-        $values['plural']=ucfirst($values['plural']);
         extract($values);
         $data = [
             'model' => $model,

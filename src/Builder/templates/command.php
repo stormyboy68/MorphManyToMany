@@ -65,7 +65,7 @@ class ".$model."Command
         if(\$this->isTrashed(\$$model)) return false;
         \$$model = \$this->firstOrCreate".$model."Internal(\$$model);
         if(is_bool(\$$model) && \$$model) return false;
-        \$model->".$plural."()->sync(\$$model);
+        \$model->".strtolower($plural)."()->sync(\$$model);
         return \$model->$plural;
     }
 
@@ -95,7 +95,7 @@ class ".$model."Command
     {
         if (!\$$model = \$this->get".$model."Model(\$$model)) return false;
         \$update_".$model." = \$this->firstOrCreate".$model."Internal(\$update".$model.");
-        \$existing_".$plural." = \$this->get".$plural."(\$model, 'id');
+        \$existing_".$plural." = \$this->get".ucfirst($plural)."(\$model, 'id');
         if (!in_array(\$update_".$model."->id, \$existing_".$plural.") && in_array(\$".$model."->id, \$existing_".$plural.")) {
             \$temp_".$plural." = array_replace(\$existing_".$plural.",
                 [array_search(\$".$model."->id, \$existing_".$plural.") => \$update_".$model."->id]);
@@ -113,7 +113,7 @@ class ".$model."Command
     public function remove$model(Model \$model, string|int \$$model): mixed
     {
         \$$model = \$this->get".$model."Model(\$$model);
-        \$existing_".$plural." = \$this->get".$plural."(\$model, 'id');
+        \$existing_".$plural." = \$this->get".ucfirst($plural)."(\$model, 'id');
         if (\$$model && in_array(\$".$model."->id, \$existing_".$plural.")) {
             return \$model->".$plural."()->detach(\$$model);
         }
