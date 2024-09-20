@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\Utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\Utility\File;
 
 class RouteBuilder
 {
@@ -14,7 +14,7 @@ class RouteBuilder
             'model' => $model,
             'plural' => $plural,
             'relationName' => $relationName,
-            'fileName' => sprintf(BasePathMTM::Route, $model) . 'routes.php',
+            'fileName' => sprintf(BasePathMTM::Route(), $model) . 'routes.php',
             'txt' => include BasePathMTM::RouteTemplate,
         ];
         return File::handle($data);

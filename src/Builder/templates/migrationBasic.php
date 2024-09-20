@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        \Rack\\MTM\\$model\\App\\Models\\$model::CreateTable();
+        \Rack\\Morph\\MTM\\$model\\App\\Models\\$model::CreateTable();
     }
     public function down(): void
     {

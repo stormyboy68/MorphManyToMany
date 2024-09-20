@@ -1,26 +1,11 @@
 <?php
 
-namespace ASB\MorphToMany\Enum;
+namespace ASB\MorphMTM\Enum;
 
-use ASB\MorphToMany\Console\Commands\build;
 
 class BasePathMTM
 {
-    public const External = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Rack" . DIRECTORY_SEPARATOR . "MTM" . DIRECTORY_SEPARATOR;
-    public const ModuleDirectory = self::External . '%s' . DIRECTORY_SEPARATOR;
-    public const App = self::ModuleDirectory . "App" . DIRECTORY_SEPARATOR;
-    public const Http = self::App . "Http" . DIRECTORY_SEPARATOR;
-    public const Model = self::App . "Models" . DIRECTORY_SEPARATOR;
 
-    public const Controller = self::Http . "Controllers" . DIRECTORY_SEPARATOR;
-    public const Request = self::Http . "Requests" . DIRECTORY_SEPARATOR;
-    public const Commands = self::App . "Commands" . DIRECTORY_SEPARATOR;
-    public const Facade = self::ModuleDirectory . "Facades" . DIRECTORY_SEPARATOR;
-    public const Database = self::ModuleDirectory . "database" . DIRECTORY_SEPARATOR;
-    public const Migration = self::Database . "migrations" . DIRECTORY_SEPARATOR;
-    public const Trait = self::ModuleDirectory . "Traits" . DIRECTORY_SEPARATOR;
-    public const Route = self::ModuleDirectory . "routes" . DIRECTORY_SEPARATOR;
-    const Provider = self::ModuleDirectory . "Providers" . DIRECTORY_SEPARATOR;
     public const CommandTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'command.php';
     public const FacadeTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'facade.php';
     public const MigrationBasicTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migrationBasic.php';
@@ -31,12 +16,97 @@ class BasePathMTM
     public const ProviderTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'provider.php';
     public const RouteTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'route.php';
     public const ControllerTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'controller.php';
-    public const Singleton = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-    . 'Providers' . DIRECTORY_SEPARATOR . 'singleton.php';
-    public const Resolve = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-    . 'Providers' . DIRECTORY_SEPARATOR . 'resolveRelation.php';
     public const Prefix = 'MTM';
-    const PrefixNameSpaceServiceProvider = 'Rack\\MTM\\';
-    const MiddleNameSpaceServiceProvider = '\\Providers\\';
-    const SpaceNameServiceProvider = self::PrefixNameSpaceServiceProvider . '%s' . self::MiddleNameSpaceServiceProvider . '%sServiceProvider';
+    public const PrefixNameSpaceServiceProvider = 'Rack\\Morph\\MTM\\';
+    public const MiddleNameSpaceServiceProvider = '\\Providers\\';
+    public const SpaceNameServiceProvider = self::PrefixNameSpaceServiceProvider . '%s' . self::MiddleNameSpaceServiceProvider . '%sServiceProvider';
+
+    public static function __callStatic($name, $arguments)
+    {
+        if (method_exists(static::class, $name)) {
+            return static::$name();
+        }
+        return null;
+    }
+
+    public static function Rack(): string
+    {
+        return base_path('Rack') . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Morph(): string
+    {
+        return self::Rack() . "Morph" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Package(): string
+    {
+        return self::Morph() . "MTM" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function ModuleDirectory(): string
+    {
+        return self::Package() . '%s' . DIRECTORY_SEPARATOR;
+    }
+
+    public static function App()
+    {
+        return self::ModuleDirectory() . "App" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Http()
+    {
+        return self::App() . "Http" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Model()
+    {
+        return self::App() . "Models" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Controller()
+    {
+        return self::Http() . "Controllers" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Request()
+    {
+        return self::Http() . "Requests" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Commands()
+    {
+
+        return self::App() . "Commands" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Facade()
+    {
+        return self::ModuleDirectory() . "Facades" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Database()
+    {
+        return self::ModuleDirectory() . "database" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Migration()
+    {
+        return self::Database() . "migrations" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Trait()
+    {
+        return self::ModuleDirectory() . "Traits" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Route()
+    {
+        return self::ModuleDirectory() . "routes" . DIRECTORY_SEPARATOR;
+    }
+
+    public static function Provider()
+    {
+        return self::ModuleDirectory() . "Providers" . DIRECTORY_SEPARATOR;
+    }
 }

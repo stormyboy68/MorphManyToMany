@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\File;
 
 class FacadeBuilder
 {
@@ -13,7 +13,7 @@ class FacadeBuilder
         extract($values);
         $data = [
             'model' => $model,
-            'fileName' => sprintf(BasePathMTM::Facade, $model).BasePathMTM::Prefix."$model.php",
+            'fileName' => sprintf(BasePathMTM::Facade(), $model).BasePathMTM::Prefix."$model.php",
             'txt' => include  BasePathMTM::FacadeTemplate,
         ];
         return File::handle($data);

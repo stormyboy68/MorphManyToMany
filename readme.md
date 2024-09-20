@@ -1,91 +1,112 @@
-# Features
+# Feature
 
-This package is about assigning **models of relation Morph to manny** to another models in **Laravel**.\
-and all models and migrations and facades another things you need all of them you need it build 
-The type of relationship between tables is morphedByMany-morphToMany,\
-but depending on your preference in using the command,\
-it can be used like morphTo-morphMany morph relationships.
+Maybe for you, implementing a series of models and repetitive relationships is boring, time-consuming and annoying, and you will have to copy your previous codes or refactor them, which will be a waste of time. This package provides you with a module to automatically addMorph many-to-many relations to your project along with commonly used basic commands. which minimizes the trial and error operation for you.
 
 ![][rel]
 
-## main question why we require this package :
+## how to use this package :
 There is no need to define relationships anymore,
-and it is enough to Add the necessary Trait **Has+yourModel** (like this => hasStatus) and this Trait **MTMcm**
-in the models to which the status is applied.
+and it is enough to Add the necessary Trait **_Has+yourModel_** (like this => hasStatus) and this Trait **MTMcm**
+in the models to which the Model is applied.
 ### Quick Start <br>
+
 
 1. #### Installation:
     ````clickhouse
-    composer require asb/morphtomany
+    composer require asb/morphmtm
     ````
-2. #### Run the migrations:<br>
-    ````clickhouse
-    php artisan migrate
+
+2. #### Autoloading
+       "autoload": {
+           "psr-4": {
+               "App\\": "app/",
+               "Rack\\": "Rack/" //
+           }
+       }
+    
+`In an example to create a category module, I will explain how to use it.`
+3. #### build module:<br>
+    `php artisan mtm:build *Modulename*`
+
+    ````php
+    php artisan mtm:build category
     ````
+       in continue the command, you will be asked to named,
+       of course, you can confirm and pass the default value by pressed the enter key,
+       but some default words may not be to your liking.`
+    ````php
+    What is the Model Name [Category]:
+    >[enter]
+     What is the Model Plural Name [categories]:
+    >[enter]
+    What is the Model Relation Name [categoryable]:
+    >categorizable //Here the default name of the relationship is not good, and we changed it.
+    ````
+   
 3. #### Add the necessary Trait to your model:<br>
-````php
-    // The model requires these trait.
-    use HasStatus; //has+yourModelName
+    ````php  
+    //The class model requires these trait.
+    use HasCategory; //has+yourModelName
     use MTMcm;
-````
-4. #### Using:<br>
-+ ###### Get all the Models that have this Status.<br>
+    ````
+4. #### Use predefined functions:<hr>
++ ###### it gets all the models that have Category.
   ````php
   getModelsHave(string $MTMmodel)
   ````
-+ ###### Get all the Statuses of Model.
++ ###### it gets all the Categories of Model.
   ````php
-  getStatuses(Model $model)
+  getCategories(Model $model)
   ````
-+ ###### Check The model has this Status.
++ ###### it checks the Model has this Category by Title or ID.
   ````php
-   >   hasStatuses(Model $model,string $MTMmodel)
+  hasCategries(Model $model,string $MTMmodel)
   ````
-+ ###### it assigns a Status to the Model.
++ ###### it assigns a Category to the Model by Title or ID.
   ````php
-   >   assignStatus(Model $model,string $MTMmodel)
+  assignCategory(Model $model,string $MTMmodel)
   ````
-+ ###### it adds a Status to the Model.
++ ###### it adds a Category to the Model by Title or ID.
   ````php
-   >   addStatus(Model $model,string $MTMmodel)
+  addCategory(Model $model,string $MTMmodel)
   ````
-  + ###### it updates a Status from the Model and replace by new or a status that exists.
+  + ###### it updates a Category from the Model and replace by new Category Or a Category that exists.
   ````php
-   >   updateStatus(Model $model,string $MTMmodel,string $newMTMmodel)
+  updateCategory(Model $model,string $MTMmodel,string $newMTMmodel)
   ````
-  + ###### it removes a status from the model.
+  + ###### it removes a Category from the model by Title or ID.
   ````php
-   >   removeStatus(Model $model,string $MTMmodel)
+  removeCategory(Model $model,string $MTMmodel)
   ````
-  + ###### it removes all statuses from the model.
+  + ###### it removes all Categories from the model.
   ````php
-   >   removeAllStatus(Model $model)
+  removeAllCategory(Model $model)
   ````
-5. #### Using Status Model:
+5. #### Using CRUD of Model in Module:
 
-   > + ##### it Creates a Status.
+    + ##### it Creates a Category by a new Title.
     ````php    
-   >       createStatusModel(string $MTMmodel)
+    createCategoryModel(string $MTMmodel)
     ````
-   > + ##### it gets all Status.
+    + ##### it gets all of Category And if it is called with "true" parameter, it will get all the deleted Category.
     ````php    
-   >       getAllStatusModel(bool $onlyTrashed=false)
-    ````
-   > + ##### it gets a Status by title.
+    getAllCategoryModel(bool $onlyTrashed=false)
+     ````
+    + ##### it gets a Category by Title or ID.
     ````php
-   >       getStatusModel(string $MTMmodel)
+     getCategoryModel(string $MTMmodel)
     ````
-   > + ##### it updates a Status by title and replace by new_title.
+    + ##### updates a Category by Title or ID and replace by a new Title
     ````php 
-   >       updateStatusModel(string $MTMmodel, string $update_status):
+    updateCategoryModel(string $MTMmodel, string $update_Category):
     ````
-   > + ##### it removes a Status by title or id and removing the Status and from all Models.
+    + ##### it removes a Category by Title or ID and removing the Category and from all Models.
     ````php
-   >       removeStatusModel(string $MTMmodel) 
+     removeCategoryModel(string $MTMmodel) 
     ````   
-   > + ##### it restore a Status by title or id.
+    + ##### it restored a Category by Title or ID.
     ````php
-   >       removeStatusModel(string $MTMmodel) 
+     removeCategoryModel(string $MTMmodel) 
     ````
 
 

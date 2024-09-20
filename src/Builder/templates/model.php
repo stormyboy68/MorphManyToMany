@@ -1,7 +1,7 @@
 <?php
 return
 '<?php' . "
-namespace Rack\\MTM\\$model\\App\\Models;\n
+namespace Rack\\Morph\\MTM\\$model\\App\\Models;\n
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

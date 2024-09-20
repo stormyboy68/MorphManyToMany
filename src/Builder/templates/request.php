@@ -1,7 +1,7 @@
 <?php
 return
 '<?php'."
-namespace Rack\\MTM\\$model\\App\\Http\\Requests;
+namespace Rack\\Morph\\MTM\\$model\\App\\Http\\Requests;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +14,7 @@ class ".$model."Request
             'title' => 'required|unique:$plural|max:255',
         ]);
         if (\$validator->fails()) {
-            return \$validator->messages();
+            return true;
         }
     }
 }

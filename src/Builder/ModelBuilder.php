@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\File;
 
 class ModelBuilder
 {
@@ -13,7 +13,7 @@ class ModelBuilder
         $data=[
             'model'=>$model,
             'plural'=>$plural,
-            'fileName'=> sprintf(BasePathMTM::Model, $model).$model.'.php',
+            'fileName'=> sprintf(BasePathMTM::Model(), $model).$model.'.php',
             'txt' => include BasePathMTM::ModelTemplate,
         ];
 

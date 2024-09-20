@@ -1,7 +1,7 @@
 <?php
-namespace ASB\MorphToMany\Traits;
+namespace ASB\MorphMTM\Traits;
 
-use ASB\MorphToMany\Utility\AsbClassMap;
+use ASB\MorphMTM\Utility\AsbClassMap;
 
 trait MTMcm
 {

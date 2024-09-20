@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\File;
 
 class RequestBuilder
 {
@@ -13,7 +13,7 @@ class RequestBuilder
         $data = [
             'model' => $model,
             'plural' => $plural,
-            'fileName' => sprintf(BasePathMTM::Request, $model) . $model . 'Request.php',
+            'fileName' => sprintf(BasePathMTM::Request(), $model) . $model . 'Request.php',
             'txt' => include BasePathMTM::RequestTemplate,
         ];
         return File::handle($data);

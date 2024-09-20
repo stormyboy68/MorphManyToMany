@@ -1,11 +1,11 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\CheckFile;
-use ASB\MorphToMany\utility\File;
-use Illuminate\Support\Str;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\CheckFile;
+use ASB\MorphMTM\utility\File;
+
 
 class MigrationBuilder
 {
@@ -27,7 +27,7 @@ class MigrationBuilder
         $data = [
             'model' => $model,
             'relationName' => $relationName,
-            'fileName' => sprintf(BasePathMTM::Migration, $model) . $fileName,
+            'fileName' => sprintf(BasePathMTM::Migration(), $model) . $fileName,
             'txt' => include BasePathMTM::MigrationPivotTemplate,
         ];
         return File::handle($data);
@@ -44,7 +44,7 @@ class MigrationBuilder
         $data = [
             'model' => $model,
             'plural' => $plural,
-            'fileName' => sprintf(BasePathMTM::Migration, $model) . $fileName,
+            'fileName' => sprintf(BasePathMTM::Migration(), $model) . $fileName,
             'txt' => include BasePathMTM::MigrationBasicTemplate,
         ];
         return File::handle($data);

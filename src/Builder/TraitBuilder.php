@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\File;
 
 class TraitBuilder
 {
@@ -14,7 +14,7 @@ class TraitBuilder
             'model' => $model,
             'plural' => $plural,
             'relationName' => $relationName,
-            'fileName' => sprintf(BasePathMTM::Trait, $model) . 'Has' . $model . '.php',
+            'fileName' => sprintf(BasePathMTM::Trait(), $model) . 'Has' . $model . '.php',
             'txt' => include BasePathMTM::TraitTemplate,
         ];
         return File::handle($data);

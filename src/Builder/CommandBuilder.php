@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\File;
 
 class CommandBuilder
 {
@@ -12,7 +12,7 @@ class CommandBuilder
         extract($values);
         $data = [
             'model' => $model,
-            'fileName' => sprintf(BasePathMTM::Commands,$model).$model."Command.php",
+            'fileName' => sprintf(BasePathMTM::Commands(),$model).$model."Command.php",
             'txt' => include BasePathMTM::CommandTemplate,
         ];
         return File::handle($data);

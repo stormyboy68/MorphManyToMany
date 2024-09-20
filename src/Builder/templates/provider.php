@@ -3,7 +3,7 @@
 return
 '<?php'.
 "
-namespace Rack\\MTM\\$model\\Providers;
+namespace Rack\\Morph\\MTM\\$model\\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +17,7 @@ class ".$model."ServiceProvider extends ServiceProvider
         \$this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
         \$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         \$this->app->singleton('MTM" . $model. "',function (){
-            return new \Rack\\MTM\\$model\\App\\Commands\\" . $model . "Command();
+            return new \Rack\\Morph\\MTM\\$model\\App\\Commands\\" . $model . "Command();
         });
     }
 
@@ -26,8 +26,8 @@ class ".$model."ServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        foreach (\ASB\MorphToMany\Utility\AsbClassMap::getClassMap() as \$name => \$class) {
-            \\Rack\\MTM\\$model\\App\\Models\\$model::resolveRelationUsing(\$name, function (\\Rack\\MTM\\$model\\App\\Models\\$model \$model)use(\$class) {
+        foreach (\ASB\MorphMTM\Utility\AsbClassMap::getClassMap() as \$name => \$class) {
+            \\Rack\\Morph\\MTM\\$model\\App\\Models\\$model::resolveRelationUsing(\$name, function (\\Rack\\Morph\\MTM\\$model\\App\\Models\\$model \$model)use(\$class) {
                 return \$model->morphedByMany(\$class, '".$relationName."', '".\Illuminate\Support\Str::plural($relationName)."')->without(['".strtolower($model)."']);
             });
         }

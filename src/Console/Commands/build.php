@@ -1,21 +1,21 @@
 <?php
 
-namespace ASB\MorphToMany\Console\Commands;
+namespace ASB\MorphMTM\Console\Commands;
 
-use App\Providers\AppServiceProvider;
-use ASB\MorphToMany\Builder\CommandBuilder;
-use ASB\MorphToMany\Builder\ControllerBuiler;
-use ASB\MorphToMany\Builder\FacadeBuilder;
-use ASB\MorphToMany\Builder\MigrationBuilder;
-use ASB\MorphToMany\Builder\ModelBuilder;
-use ASB\MorphToMany\Builder\ProviderBuilder;
-use ASB\MorphToMany\Builder\RequestBuilder;
-use ASB\MorphToMany\Builder\ResolveRelBuilder;
-use ASB\MorphToMany\Builder\RouteBuilder;
-use ASB\MorphToMany\Builder\SingletonBuilder;
-use ASB\MorphToMany\Builder\TraitBuilder;
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\utility\CheckFile;
+
+use ASB\MorphMTM\Builder\CommandBuilder;
+use ASB\MorphMTM\Builder\ControllerBuilder;
+use ASB\MorphMTM\Builder\FacadeBuilder;
+use ASB\MorphMTM\Builder\MigrationBuilder;
+use ASB\MorphMTM\Builder\ModelBuilder;
+use ASB\MorphMTM\Builder\operation\Provider;
+use ASB\MorphMTM\Builder\ProviderBuilder;
+use ASB\MorphMTM\Builder\RequestBuilder;
+use ASB\MorphMTM\Builder\RouteBuilder;
+use ASB\MorphMTM\Builder\TraitBuilder;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\CheckFile;
+use ASB\MorphMTM\Utility\File;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Support\ServiceProvider;
@@ -29,7 +29,8 @@ class build extends Command implements PromptsForMissingInput
      * @var string
      */
     protected $signature = 'mtm:build
-                            {--force : Create the Model of files even if them already exists}
+                            {module : the Module Name}
+                            {--force : Create the Module of files even if them already exists}
                             {--migrate : Run the database migrations}';
 
     /**
@@ -39,85 +40,53 @@ class build extends Command implements PromptsForMissingInput
      */
     protected $description = 'Create the model with its MorphByMany-MorphedByMany relations';
 
-    private static function initializeDirectories($val): void
-    {
-        $paths = [
-            'ModuleDirectory' => sprintf(BasePathMTM::ModuleDirectory, $val['model']),
-
-            'App' => sprintf(BasePathMTM::App, $val['model']),
-            'Commands' => sprintf(BasePathMTM::Commands, $val['model']),
-            'Models' => sprintf(BasePathMTM::Model, $val['model']),
-
-            'Http' => sprintf(BasePathMTM::Http, $val['model']),
-            'Controller' => sprintf(BasePathMTM::Controller, $val['model']),
-            'Request' => sprintf(BasePathMTM::Request, $val['model']),
-
-
-            'database' => sprintf(BasePathMTM::Database, $val['model']),
-            'migration' => sprintf(BasePathMTM::Migration, $val['model']),
-
-            'facade' => sprintf(BasePathMTM::Facade, $val['model']),
-            'trait' => sprintf(BasePathMTM::Trait, $val['model']),
-            'routes' => sprintf(BasePathMTM::Route, $val['model']),
-            'provider' => sprintf(BasePathMTM::Provider, $val['model']),
-
-        ];
-        foreach ($paths as $item) {
-            if (!file_exists($item)) {
-                mkdir($item);
-            }
-        }
-    }
-
-    private static function init(): void
-    {
-        if (!file_exists(BasePathMTM::External)) {
-            mkdir(BasePathMTM::External);
-        }
-    }
 
     /**
      * Execute the console command.
      */
     public function handle(): void
     {
-        $counter = 0;
-        $models = config('mtm.models');
         $force = $this->option('force');
-        self::init();
-        foreach ($models as $val) {
-            $val['model'] = ucfirst(strtolower($val['model']));
-            $val['plural'] = Str::plural(strtolower(($val['model'])));
-            $val['pluralRelation'] = Str::plural($val['relationName']);
-            if (CheckFile::checkFilesModelExists($val) && !$force) continue;
-            self::initializeDirectories($val);
-            $counter++;
-
-            $res['Model'] = ModelBuilder::handle($val);
-            $res['Migration'] = MigrationBuilder::handle($val);
-            $res['Facade'] = FacadeBuilder::handle($val);
-            $res['Commands'] = CommandBuilder::handle($val);
-            $res['Controller'] = ControllerBuiler::handle($val);
-            $res['Trait'] = TraitBuilder::handle($val);
-            $res['Request'] = RequestBuilder::handle($val);
-            $res['router'] = RouteBuilder::handle($val);
-            $res['Provider'] = ProviderBuilder::handle($val);
-
-            ServiceProvider::addProviderToBootstrapFile(
-                rtrim(sprintf(BasePathMTM::SpaceNameServiceProvider, $val['model'], $val['model']),DIRECTORY_SEPARATOR),
-                $this->laravel->getBootstrapProvidersPath(),
-            );
-
-            !in_array(false, $res) ?: $this->components->error(sprintf('%s [%s] %s unsuccessfully.', 'Model ', $val['model'],
-                $force ? 'recreated' : 'created'));
-            in_array(false, $res) ?: $this->components->info(sprintf('%s [%s] %s successfully.', 'Model ', $val['model'],
-                $force ? 'recreated' : 'created'));
-        }
-        if (!$counter) {
-            $this->components->info('Nothing to create');
+        $data['module'] = $this->argument('module');
+        if (CheckFile::checkModuleExists($data) && !$force) {
+            $this->components->error('Module is exist');
             die;
         }
+
+        $data['model'] = $this->ask('What is the Model Name', ucfirst(strtolower($this->argument('module'))));
+        $data['plural'] = $this->ask('What is the Model Plural Name', Str::plural(strtolower($this->argument('module'))));
+        $data['relationName'] = $this->ask('What is the Model Relation Name', strtolower($this->argument('module')) . 'able');
+        $data['pluralRelation'] = Str::plural($data['relationName']);
+
+        File::initializeDirectories($data);
+
+        $res['Model'] = ModelBuilder::handle($data);
+        $res['Migration'] = MigrationBuilder::handle($data);
+        $res['Facade'] = FacadeBuilder::handle($data);
+        $res['Commands'] = CommandBuilder::handle($data);
+        $res['Controller'] = ControllerBuilder::handle($data);
+        $res['Trait'] = TraitBuilder::handle($data);
+        $res['Request'] = RequestBuilder::handle($data);
+        $res['router'] = RouteBuilder::handle($data);
+        $res['Provider'] = ProviderBuilder::handle($data);
+
+        $res['reg'] =Provider::addProviderToBootstrapFile(
+            rtrim(sprintf(BasePathMTM::SpaceNameServiceProvider, $data['model'], $data['model']), DIRECTORY_SEPARATOR),
+            $this->laravel->getBootstrapProvidersPath(),
+        );
+        !in_array(false, $res) ?: $this->components->error(sprintf('%s [%s] %s unsuccessfully.', 'Model ', $data['model'],
+            $force ? 'recreated' : 'created'));
+        in_array(false, $res) ?: $this->components->info(sprintf('%s [%s] %s successfully.', 'Model ', $data['model'],
+            $force ? 'recreated' : 'created'));
+
         $this->migration();
+    }
+
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            'module' => [' enter Module name do you want create?', '']
+        ];
     }
 
     /**
@@ -129,4 +98,5 @@ class build extends Command implements PromptsForMissingInput
             $this->call('migrate');
         }
     }
+
 }

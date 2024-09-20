@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\Utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\Utility\File;
 
 class ProviderBuilder
 {
@@ -13,7 +13,7 @@ class ProviderBuilder
         $data = [
             'model' => $model,
             'plural' => $plural,
-            'fileName' => sprintf(BasePathMTM::Provider, $model) . $model . 'ServiceProvider.php',
+            'fileName' => sprintf(BasePathMTM::Provider(), $model) . $model . 'ServiceProvider.php',
             'txt' => include BasePathMTM::ProviderTemplate,
         ];
         return File::handle($data);

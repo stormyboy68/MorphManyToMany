@@ -2,14 +2,14 @@
 return
 '<?php'."
 
-namespace Rack\\MTM\\$model\\App\\Commands;
+namespace Rack\\Morph\\MTM\\$model\\App\\Commands;
 
-use Rack\\MTM\\$model\\App\\Models\\$model;
-use Rack\\MTM\\$model\\App\\Http\\Requests\\".$model."Request;
+use Rack\\Morph\\MTM\\$model\\App\\Models\\$model;
+use Rack\\Morph\\MTM\\$model\\App\\Http\\Requests\\".$model."Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use ASB\MorphToMany\Utility\AsbClassMap;
+use ASB\MorphMTM\Utility\AsbClassMap;
 
 class ".$model."Command
 {
@@ -38,7 +38,7 @@ class ".$model."Command
      */
     public function get".ucfirst($plural)."(Model \$model, bool|string \$pluck = false): array|Collection
     {
-        return !\$pluck ?
+        return !\$pluck && !empty(\$model->".strtolower($plural).") ?
             \$model->".strtolower($plural)." :
             \$model->".strtolower($plural)."()->pluck(\$pluck)->toArray();
     }
@@ -135,14 +135,11 @@ class ".$model."Command
     /**
      * it Creates a $model by a new Title
      * @param string $$model
-     * @return $model|Model|MessageBag
+     * @return bool
      */
-    public function create".$model."Model(string $$model): $model|Model|MessageBag
+    public function create".$model."Model(string $$model): bool
     {
-        if(\$res=".$model."Request::rules(\$$model)){
-           return \$res;
-        }
-        return $model::query()->createOrFirst(['title'=>$$model]);
+        return !".$model."Request::rules(\$$model) && $model::query()->createOrFirst(['title'=>$$model]);
     }
 
     /**
@@ -156,7 +153,7 @@ class ".$model."Command
     }
 
     /**
-     * it gets a $model by title by Title or ID.
+     * it gets a $model by Title or ID.
      * @param string|int \$$model Title|ID
      * @return $model|null
      */
@@ -170,15 +167,12 @@ class ".$model."Command
      * it updates a $model by Title or ID and replace by a new Title
      * @param string|int \$$model Title|ID
      * @param string \$update_$model
-     * @return MessageBag|int
+     * @return bool
      */
-    public function update".$model."Model(string|int $$model, string \$update_$model): int|MessageBag
+    public function update".$model."Model(string|int $$model, string \$update_$model): bool
     {
-        if(\$res=".$model."Request::rules(\$update_$model)){
-           return \$res;
-        }
         $$model = \$this->get".$model."Model(\$$model);
-        return $$model && $".$model."->update(['title'=> \$update_$model]);
+        return $$model && !".$model."Request::rules(\$$model) && $".$model."->update(['title'=> \$update_$model]);
     }
 
     /**

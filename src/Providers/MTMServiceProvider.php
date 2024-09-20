@@ -1,10 +1,10 @@
 <?php
 
-namespace ASB\MorphToMany\Providers;
+namespace ASB\MorphMTM\Providers;
 
 
-use ASB\MorphToMany\Console\Commands\build;
-use ASB\MorphToMany\Console\Commands\Remove;
+use ASB\MorphMTM\Console\Commands\build;
+use ASB\MorphMTM\Console\Commands\Remove;
 use Illuminate\Support\ServiceProvider;
 use Rack\MTM\Status\Providers\RiakServiceProvider;
 
@@ -19,10 +19,6 @@ class MTMServiceProvider extends ServiceProvider
                 Remove::class,
             ]);
         }
-        $this->publishes([
-            __DIR__.'/../config/mtm.php' => config_path('mtm.php'),
-
-        ],'asb/mtm');
     }
     public function register(): void
     {

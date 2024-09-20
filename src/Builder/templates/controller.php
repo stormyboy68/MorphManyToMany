@@ -2,7 +2,7 @@
 return
 '<?php'."
 
-namespace Rack\\MTM\\$model\\App\Http\Controllers;
+namespace Rack\\Morph\\MTM\\$model\\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -1,11 +1,11 @@
 <?php
 
-namespace ASB\MorphToMany\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphToMany\Enum\BasePathMTM;
-use ASB\MorphToMany\Utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\Utility\File;
 
-class ControllerBuiler
+class ControllerBuilder
 {
 
     public static function handle($values)
@@ -13,7 +13,7 @@ class ControllerBuiler
         extract($values);
         $data = [
             'model' => $model,
-            'fileName' => sprintf(BasePathMTM::Controller, $model) . $model . "Controller.php",
+            'fileName' => sprintf(BasePathMTM::Controller(), $model) . $model . "Controller.php",
             'txt' => include  BasePathMTM::ControllerTemplate,
         ];
         return File::handle($data);

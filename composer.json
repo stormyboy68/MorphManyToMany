@@ -1,7 +1,7 @@
 {
-    "name": "asb/morphtomany",
+    "name": "asb/morphmtm",
     "description": "This package is about assigning status to models in Laravel.",
-    "type": "project",
+    "type": "package",
     "license": "MIT",
     "require": {
         "php": ">=8.0"
@@ -15,7 +15,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ASB\\MorphToMany\\Providers\\MTMServiceProvider"
+                "ASB\\MorphMTM\\Providers\\MTMServiceProvider"
             ],
             "aliases": {
 
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ASB\\MorphToMany\\": "src/"
+            "ASB\\MorphMTM\\": "src/"
         }
     },
     "minimum-stability": "stable",
