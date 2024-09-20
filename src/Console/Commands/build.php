@@ -57,7 +57,6 @@ class build extends Command implements PromptsForMissingInput
         $data['plural'] = $this->ask('What is the Model Plural Name', Str::plural(strtolower($this->argument('module'))));
         $data['relationName'] = $this->ask('What is the Model Relation Name', strtolower($this->argument('module')) . 'able');
         $data['pluralRelation'] = Str::plural($data['relationName']);
-
         File::initializeDirectories($data);
 
         $res['Model'] = ModelBuilder::handle($data);
@@ -70,10 +69,7 @@ class build extends Command implements PromptsForMissingInput
         $res['router'] = RouteBuilder::handle($data);
         $res['Provider'] = ProviderBuilder::handle($data);
 
-        $res['reg'] =Provider::addProviderToBootstrapFile(
-            rtrim(sprintf(BasePathMTM::SpaceNameServiceProvider, $data['model'], $data['model']), DIRECTORY_SEPARATOR),
-            $this->laravel->getBootstrapProvidersPath(),
-        );
+        Provider::addProviderToConfigFile(rtrim(sprintf(BasePathMTM::SpaceNameServiceProvider, $data['model'], $data['model']), DIRECTORY_SEPARATOR));
         !in_array(false, $res) ?: $this->components->error(sprintf('%s [%s] %s unsuccessfully.', 'Model ', $data['model'],
             $force ? 'recreated' : 'created'));
         in_array(false, $res) ?: $this->components->info(sprintf('%s [%s] %s successfully.', 'Model ', $data['model'],

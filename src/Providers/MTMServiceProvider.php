@@ -2,11 +2,9 @@
 
 namespace ASB\MorphMTM\Providers;
 
-
 use ASB\MorphMTM\Console\Commands\build;
 use ASB\MorphMTM\Console\Commands\Remove;
 use Illuminate\Support\ServiceProvider;
-use Rack\MTM\Status\Providers\RiakServiceProvider;
 
 
 class MTMServiceProvider extends ServiceProvider
@@ -22,6 +20,10 @@ class MTMServiceProvider extends ServiceProvider
     }
     public function register(): void
     {
-        //
+        if (file_exists(config_path('mtm.php')) && $providers=config('mtm.providers')) {
+            foreach ($providers as $provider) {
+                $this->app->register($provider);
+            }
+        }
     }
 }

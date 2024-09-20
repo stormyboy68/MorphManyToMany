@@ -15,6 +15,7 @@ class ".$model."Controller extends Controller
     public function index()
     {
         //
+        echo self::class;
     }
 
     /**

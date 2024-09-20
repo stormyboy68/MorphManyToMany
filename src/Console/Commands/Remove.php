@@ -28,7 +28,7 @@ class Remove extends Command implements PromptsForMissingInput
             $this->components->error('the Model Can\'t find.');
             die;
         }
-        Provider::removeProviderToBootstrapFile(sprintf(BasePathMTM::SpaceNameServiceProvider, $module, $module));
+        Provider::removeProviderToConfigFile(sprintf(BasePathMTM::SpaceNameServiceProvider, $module, $module));
         $this->call('config:clear');
         File::removeModuleDirectory(sprintf(BasePathMTM::ModuleDirectory(), $module));
         $this->components->info(sprintf('%s [%s] removed successfully.', 'Model ', $module));
