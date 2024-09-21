@@ -99,7 +99,9 @@ class ".$model."Command
             if (in_array(\$update_".$model."->id, \$existing_".$plural.")){
                 unset(\$existing_".$plural."[array_search(\$update_".$model."->id, \$existing_".$plural.")]);
             }
-            return \$existing_".$plural." && \$model->".$plural."()->sync(\$existing_".$plural.");
+            \$temp_".$plural." = array_replace(\$existing_".$plural.",
+                [array_search(\$".$model."->id, \$existing_".$plural.") => \$update_".$model."->id]);
+            return \$existing_".$plural." && \$model->".$plural."()->sync(\$temp_".$plural.");
         }
         return false;
     }
