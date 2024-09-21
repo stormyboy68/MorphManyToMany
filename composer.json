@@ -1,6 +1,6 @@
 {
     "name": "asb/morphmtm",
-    "description": "This package is about assigning status to models in Laravel.",
+    "description": "This package provides you with a module to automatically files need (Model,Migrations,...) add Morph many-to-many relations to your project along with commonly used basic commands.\nwhich minimizes the trial and error operation for you..",
     "type": "package",
     "license": "MIT",
     "require": {
