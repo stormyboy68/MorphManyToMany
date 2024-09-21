@@ -69,8 +69,12 @@ in the models to which the Model is applied.
     ````
 6. #### Use predefined functions:<hr>
 + ###### it gets all the models that have Category.
+    Tip: all functions is can call static with this format (MTM+modelName):\
+        
+       one example : MTMCategory::getModelsHave('new')
+
   ````php
-  getModelsHave(string $MTMmodel)
+  getModelsHave(string|ID $MTMmodel)
   ````
 + ###### it gets all the Categories of Model.
   ````php
@@ -78,23 +82,23 @@ in the models to which the Model is applied.
   ````
 + ###### it checks the Model has this Category by Title or ID.
   ````php
-  hasCategries(Model $model,string $MTMmodel)
+  hasCategries(string|ID $model,string $MTMmodel)
   ````
 + ###### it assigns a Category to the Model by Title or ID.
   ````php
-  assignCategory(Model $model,string $MTMmodel)
+  assignCategory(Model $model,string|ID $MTMmodel)
   ````
 + ###### it adds a Category to the Model by Title or ID.
   ````php
-  addCategory(Model $model,string $MTMmodel)
+  addCategory(Model $model,string|ID $MTMmodel)
   ````
   + ###### it updates a Category from the Model and replace by new Category Or a Category that exists.
   ````php
-  updateCategory(Model $model,string $MTMmodel,string $newMTMmodel)
+  updateCategory(Model $model,string|ID $MTMmodel,string|ID $newMTMmodel)
   ````
   + ###### it removes a Category from the model by Title or ID.
   ````php
-  removeCategory(Model $model,string $MTMmodel)
+  removeCategory(Model $model,string|ID $MTMmodel)
   ````
   + ###### it removes all Categories from the model.
   ````php
@@ -112,19 +116,19 @@ in the models to which the Model is applied.
      ````
     + ##### it gets a Category by Title or ID.
     ````php
-     getCategoryModel(string $MTMmodel)
+     getCategoryModel(string|ID $MTMmodel)
     ````
     + ##### updates a Category by Title or ID and replace by a new Title
     ````php 
-    updateCategoryModel(string $MTMmodel, string $update_Category):
+    updateCategoryModel(string|ID $MTMmodel, string $update_Category):
     ````
     + ##### it removes a Category by Title or ID and removing the Category and from all Models.
     ````php
-     removeCategoryModel(string $MTMmodel) 
+     removeCategoryModel(string|ID $MTMmodel) 
     ````   
     + ##### it restored a Category by Title or ID.
     ````php
-     removeCategoryModel(string $MTMmodel) 
+     restoreCategoryModel(string|ID $MTMmodel) 
     ````
 
 
