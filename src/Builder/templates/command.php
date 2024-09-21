@@ -95,10 +95,11 @@ class ".$model."Command
         if (!\$$model = \$this->get".$model."Model(\$$model)) return false;
         \$update_".$model." = \$this->firstOrCreate".$model."Internal(\$update".$model.");
         \$existing_".$plural." = \$this->get".ucfirst($plural)."(\$model, 'id');
-        if (!in_array(\$update_".$model."->id, \$existing_".$plural.") && in_array(\$".$model."->id, \$existing_".$plural.")) {
-            \$temp_".$plural." = array_replace(\$existing_".$plural.",
-                [array_search(\$".$model."->id, \$existing_".$plural.") => \$update_".$model."->id]);
-            return \$existing_".$plural." && \$model->".$plural."()->sync(\$temp_".$plural.");
+        if (in_array(\$".$model."->id, \$existing_".$plural.")) {
+            if (in_array(\$update_".$model."->id, \$existing_".$plural.")){
+                unset(\$existing_".$plural."[array_search(\$update_".$model."->id, \$existing_".$plural.")]);
+            }
+            return \$existing_".$plural." && \$model->".$plural."()->sync(\$existing_".$plural.");
         }
         return false;
     }
