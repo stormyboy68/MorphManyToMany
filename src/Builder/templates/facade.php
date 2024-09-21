@@ -7,7 +7,6 @@ use Rack\\Morph\\MTM\\$model\\App\\Models\\$model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\MessageBag;
 
 /**
  * @method static Collection getModelsHave(string \$$model) it gets all the models that have $model.

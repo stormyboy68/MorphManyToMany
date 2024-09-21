@@ -8,7 +8,6 @@ use Rack\\Morph\\MTM\\$model\\App\\Models\\$model;
 use Rack\\Morph\\MTM\\$model\\App\\Http\\Requests\\".$model."Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\MessageBag;
 use ASB\MorphMTM\Utility\AsbClassMap;
 
 class ".$model."Command

@@ -18,7 +18,6 @@ use ASB\MorphMTM\utility\CheckFile;
 use ASB\MorphMTM\Utility\File;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
 class build extends Command implements PromptsForMissingInput

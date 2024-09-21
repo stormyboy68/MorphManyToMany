@@ -17,6 +17,9 @@ class MTMServiceProvider extends ServiceProvider
                 Remove::class,
             ]);
         }
+        $this->publishes([
+            __DIR__.'/../config/mtm.php' => config_path('mtm.php'),
+        ],'morph-mtm-config');
     }
     public function register(): void
     {
