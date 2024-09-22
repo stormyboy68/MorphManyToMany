@@ -4,7 +4,11 @@ namespace ASB\MorphMTM\Providers;
 
 use ASB\MorphMTM\Console\Commands\build;
 use ASB\MorphMTM\Console\Commands\Remove;
+use ASB\MorphMTM\Utility\Map;
+use ASB\MorphMTM\Utility\Json;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+
 
 
 class MTMServiceProvider extends ServiceProvider
@@ -17,6 +21,7 @@ class MTMServiceProvider extends ServiceProvider
                 Remove::class,
             ]);
         }
+        $this->setMAP();
         $this->publishes([
             __DIR__.'/../config/mtm.php' => config_path('mtm.php'),
         ],'morph-mtm-config');
@@ -28,5 +33,17 @@ class MTMServiceProvider extends ServiceProvider
                 $this->app->register($provider);
             }
         }
+    }
+
+    protected function setMAP(): void
+    {
+        Event::listen('eloquent.booting: *', function ($eventName, $models) {
+            $model = $models[0];
+            if (array_intersect(Json::get(), class_uses_recursive($model))) {
+                if (!in_array(get_class($model), Map::getClassMap())) {
+                    Map::handler(get_class($model));
+                }
+            }
+        });
     }
 }

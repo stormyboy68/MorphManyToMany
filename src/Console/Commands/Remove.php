@@ -6,6 +6,7 @@ use ASB\MorphMTM\Builder\operation\Provider;
 use ASB\MorphMTM\Utility\CheckFile;
 use ASB\MorphMTM\Enum\BasePathMTM;
 use ASB\MorphMTM\Utility\File;
+use ASB\MorphMTM\Utility\Json;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 
@@ -29,7 +30,7 @@ class Remove extends Command implements PromptsForMissingInput
             die;
         }
         Provider::removeProviderToConfigFile(sprintf(BasePathMTM::SpaceNameServiceProvider, $module, $module));
-        $this->call('config:clear');
+        Json::remove(['Rack\Morph\MTM\\'.$module.'\Traits\Has'.$module]);
         File::removeModuleDirectory(sprintf(BasePathMTM::ModuleDirectory(), $module));
         $this->components->info(sprintf('%s [%s] removed successfully.', 'Model ', $module));
     }

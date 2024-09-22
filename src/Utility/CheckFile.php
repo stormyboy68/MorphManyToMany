@@ -9,8 +9,8 @@ class CheckFile
     public static function checkFileMigrationExists($data, $pivot = false): ?string
     {
         $res = scandir(sprintf(BasePathMTM::Migration(), $data['model']));
-        unset($res[0], $res[1]);
         foreach ($res as $val) {
+            if ($val == '.' || $val == '..') continue;
             if (!$pivot && isset($data['plural']) && str_contains($val, $data['plural'])) return $val;
             if ($pivot && isset($data['pluralRelation']) && str_contains($val, $data['pluralRelation'])) return $val;
         }
@@ -20,8 +20,8 @@ class CheckFile
     public static function checkFileMigration($data, $pivot = false): bool
     {
         $res = scandir(sprintf(BasePathMTM::Migration(), $data['model']));
-        unset($res[0], $res[1]);
         foreach ($res as $val) {
+            if ($val == '.' || $val == '..') continue;
             if (!$pivot && isset($data['plural']) && str_contains($val, $data['plural'])) return true;
             if ($pivot && isset($data['pluralRelation']) && str_contains($val, $data['pluralRelation'])) return true;
         }

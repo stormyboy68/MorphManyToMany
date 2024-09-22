@@ -11,7 +11,7 @@ which minimizes the trial and error operation for you.
 
 ## how to use this package :
 There is no need to define relationships anymore,
-and it is enough to Add the necessary Trait **_Has+yourModel_** (like this => hasStatus) and this Trait **MTMcm**
+and it is enough to Add the necessary Trait **_Has+yourModel_** (like this => hasStatus)
 in the models to which the Model is applied.
 ## Requirements
 **The package requires PHP 8 or higher. The Laravel package also requires Laravel 10 or higher.**
