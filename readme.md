@@ -65,7 +65,6 @@ in the models to which the Model is applied.
     ````php  
     //The class model requires these trait.
     use HasCategory; //has+yourModelName
-    use MTMcm;
     ````
 6. #### Use predefined functions:<hr>
 + ###### it gets all the models that have Category.
