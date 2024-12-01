@@ -8,7 +8,7 @@ use Rack\\Morph\\MTM\\$model\\App\\Models\\$model;
 use Rack\\Morph\\MTM\\$model\\App\\Http\\Requests\\".$model."Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use ASB\MorphMTM\Utility\AsbClassMap;
+use ASB\MorphMTM\Utility\Map;
 
 class ".$model."Command
 {
@@ -22,7 +22,7 @@ class ".$model."Command
         \$temp=[];
         \$$model = \$this->get".$model."Model(\$$model);
         if (empty(\$$model)) return collect([]);
-        foreach (AsbClassMap::getClassMap() as \$rel => \$class) {
+        foreach (Map::getClassMap() as \$rel => \$class) {
             \$current_temp= \$$model->\$rel->all();
             if(!\$current_temp) continue;
             \$temp[\$rel] = \$current_temp;
