@@ -26,7 +26,7 @@ class ".$model."ServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        foreach (\ASB\MorphMTM\Utility\AsbClassMap::getClassMap() as \$name => \$class) {
+        foreach (\ASB\MorphMTM\Utility\Map::getClassMap() as \$name => \$class) {
             \\Rack\\Morph\\MTM\\$model\\App\\Models\\$model::resolveRelationUsing(\$name, function (\\Rack\\Morph\\MTM\\$model\\App\\Models\\$model \$model)use(\$class) {
                 return \$model->morphedByMany(\$class, '".$relationName."', '".\Illuminate\Support\Str::plural($relationName)."')->without(['".strtolower($model)."']);
             });
