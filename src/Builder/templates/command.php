@@ -212,7 +212,7 @@ class ".$model."Command
      * @param string $$model
      * @return bool
      */
-    public function isTrashed(string $$model): bool
+    public function isTrashed(int|string $$model): bool
     {
         return $model::onlyTrashed()->where(['id' => $$model])->first() ||
          $model::onlyTrashed()->where(['title' => $$model])->first();
