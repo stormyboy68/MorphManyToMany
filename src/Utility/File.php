@@ -27,6 +27,7 @@ class File
             'App' => sprintf(BasePathMTM::App(), $data['model']),
             'Commands' => sprintf(BasePathMTM::Commands(), $data['model']),
             'Models' => sprintf(BasePathMTM::Model(), $data['model']),
+            'Observers' => sprintf(BasePathMTM::Observer(), $data['model']),
 
             'Http' => sprintf(BasePathMTM::Http(), $data['model']),
             'Controller' => sprintf(BasePathMTM::Controller(), $data['model']),

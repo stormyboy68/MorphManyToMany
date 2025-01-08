@@ -13,10 +13,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('".strtolower($pluralRelation)."', function (Blueprint \$table) {
-            \$table->foreignId(\"".strtolower($model)."_id\")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            \$table->morphs('".strtolower($relationName)."');
-        });
+        \Rack\\Morph\\MTM\\$model\\App\\Models\\$model::CreatePivotTable();
     }
 
     /**

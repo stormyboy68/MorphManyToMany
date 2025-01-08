@@ -8,13 +8,14 @@ use ASB\MorphMTM\Builder\ControllerBuilder;
 use ASB\MorphMTM\Builder\FacadeBuilder;
 use ASB\MorphMTM\Builder\MigrationBuilder;
 use ASB\MorphMTM\Builder\ModelBuilder;
+use ASB\MorphMTM\Builder\ObserverBuilder;
 use ASB\MorphMTM\Builder\operation\Provider;
 use ASB\MorphMTM\Builder\ProviderBuilder;
 use ASB\MorphMTM\Builder\RequestBuilder;
 use ASB\MorphMTM\Builder\RouteBuilder;
 use ASB\MorphMTM\Builder\TraitBuilder;
 use ASB\MorphMTM\Enum\BasePathMTM;
-use ASB\MorphMTM\utility\CheckFile;
+use ASB\MorphMTM\Utility\CheckFile;
 use ASB\MorphMTM\Utility\File;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
@@ -29,7 +30,8 @@ class build extends Command implements PromptsForMissingInput
      */
     protected $signature = 'mtm:build
                             {module : the Module Name}
-                            {--force : Create the Module of files even if them already exists}
+                            {--force : Create the Module of files even if them already exists except migrations}
+                            {--uuid : Create the Module With Uuid Key Type}
                             {--migrate : Run the database migrations}';
 
     /**
@@ -46,6 +48,7 @@ class build extends Command implements PromptsForMissingInput
     public function handle(): void
     {
         $force = $this->option('force');
+        $data['uuid'] = $this->option('uuid') ?? null;
         $data['module'] = $this->argument('module');
         if (CheckFile::checkModuleExists($data) && !$force) {
             $this->components->error('Module is exist');
@@ -59,6 +62,7 @@ class build extends Command implements PromptsForMissingInput
         File::initializeDirectories($data);
 
         $res['Model'] = ModelBuilder::handle($data);
+        $res['Observer'] = ObserverBuilder::handle($data);
         $res['Migration'] = MigrationBuilder::handle($data);
         $res['Facade'] = FacadeBuilder::handle($data);
         $res['Commands'] = CommandBuilder::handle($data);

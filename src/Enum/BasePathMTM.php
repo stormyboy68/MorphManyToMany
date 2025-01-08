@@ -11,6 +11,7 @@ class BasePathMTM
     public const MigrationBasicTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migrationBasic.php';
     public const MigrationPivotTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migrationPivot.php';
     public const ModelTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'model.php';
+    public const ObserverTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'observer.php';
     public const RequestTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'request.php';
     public const TraitTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'trait.php';
     public const ProviderTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'provider.php';
@@ -62,6 +63,10 @@ class BasePathMTM
     public static function Model()
     {
         return self::App() . "Models" . DIRECTORY_SEPARATOR;
+    }
+    public static function Observer()
+    {
+        return self::App() . "Observers" . DIRECTORY_SEPARATOR;
     }
 
     public static function Controller()

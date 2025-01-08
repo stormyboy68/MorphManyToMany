@@ -61,8 +61,8 @@ class ".$model."Command
      */
     public function assign$model(Model \$model, string|int \$$model): bool|Collection
     {
-        if(\$this->isTrashed(\$$model)) return false;
-        \$$model = \$this->firstOrCreate".$model."Internal(\$$model);
+        if(\$this->isTrashed(\$$model,get_class(\$model))) return false;
+        \$$model = \$this->firstOrCreate".$model."Internal(\$$model,get_class(\$model));
         if(is_bool(\$$model) && \$$model) return false;
         \$model->".strtolower($plural)."()->sync(\$$model);
         return \$model->$plural;
@@ -76,8 +76,8 @@ class ".$model."Command
      */
     public function add$model(Model \$model, string|int \$$model): bool|Collection
     {
-        if(\$this->isTrashed(\$$model)) return false;
-        \$$model = \$this->firstOrCreate".$model."Internal(\$$model);
+        if(\$this->isTrashed(\$$model,get_class(\$model))) return false;
+        \$$model = \$this->firstOrCreate".$model."Internal(\$$model,get_class(\$model));
         if(is_bool(\$$model) && \$$model) return false;
         return  \$this->has".$model."(\$model, \$".$model."->title) ? \$model->$plural :
             (\$model->".$plural."()->attach(\$$model) ?? \$model->$plural);
@@ -136,12 +136,13 @@ class ".$model."Command
     /* =====================> crud $model model <============================ */
     /**
      * it Creates a $model by a new Title
+     * @param string|null \$model_type
      * @param string $$model
      * @return bool
      */
-    public function create".$model."Model(string $$model): bool
+    public function create".$model."Model(string $$model,string \$model_type): bool
     {
-        return !".$model."Request::rules(\$$model) && $model::query()->createOrFirst(['title'=>$$model]);
+        return !".$model."Request::rules(\$$model) && $model::query()->createOrFirst(['title'=>$$model, 'model_type' => \$model_type]);
     }
 
     /**
@@ -199,23 +200,27 @@ class ".$model."Command
     }
      /**
      * @param int|string $$model
+     * @param string|null \$model_type
      * @return $model|bool|Model
      */
-    public function firstOrCreate".$model."Internal(int|string $$model): bool|Model|$model
+    public function firstOrCreate".$model."Internal(int|string $$model,string \$model_type = null): bool|Model|$model
     {
-        return $model::query()->where(['id' => $$model])->first() ??
-            is_int($$model) ?: $model::query()->firstOrCreate(['title' => $$model]);
+        return is_numeric($$model) ?
+              $model::query()->where(['id' => $$model])->first():
+              $model::query()->firstOrCreate(['title' => $$model, 'model_type' => \$model_type]);
     }
 
     /*====================================> Validation <===========================================*/
     /**
      * @param string $$model
+     * @param string|null \$model_type
      * @return bool
      */
-    public function isTrashed(int|string $$model): bool
+    public function isTrashed(int|string $$model,string \$model_type = null): bool
     {
-        return $model::onlyTrashed()->where(['id' => $$model])->first() ||
-         $model::onlyTrashed()->where(['title' => $$model])->first();
+        return is_numeric($$model) ?
+              $model::onlyTrashed()->where(['id' => $$model])->first() :
+              $model::onlyTrashed()->where(['title' => $$model, 'model_type' => \$model_type])->first();
     }
 }
 ";
