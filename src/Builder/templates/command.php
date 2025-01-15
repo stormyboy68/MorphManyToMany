@@ -219,8 +219,8 @@ class ".$model."Command
     public function isTrashed(int|string $$model,string \$model_type = null): bool
     {
         return is_numeric($$model) ?
-              $model::onlyTrashed()->where(['id' => $$model])->first() :
-              $model::onlyTrashed()->where(['title' => $$model, 'model_type' => \$model_type])->first();
+              (bool)$model::onlyTrashed()->where(['id' => $$model])->first() :
+              (bool)$model::onlyTrashed()->where(['title' => $$model, 'model_type' => \$model_type])->first();
     }
 }
 ";
