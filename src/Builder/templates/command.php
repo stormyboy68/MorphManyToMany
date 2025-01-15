@@ -63,7 +63,7 @@ class ".$model."Command
     {
         if(\$this->isTrashed(\$$model,get_class(\$model))) return false;
         \$$model = \$this->firstOrCreate".$model."Internal(\$$model,get_class(\$model));
-        if(is_bool(\$$model) && \$$model) return false;
+        if(!\$$model && !\$$model instanceof $model) return false;
         \$model->".strtolower($plural)."()->sync(\$$model);
         return \$model->$plural;
     }
@@ -78,7 +78,7 @@ class ".$model."Command
     {
         if(\$this->isTrashed(\$$model,get_class(\$model))) return false;
         \$$model = \$this->firstOrCreate".$model."Internal(\$$model,get_class(\$model));
-        if(is_bool(\$$model) && \$$model) return false;
+        if(!\$$model && !\$$model instanceof $model) return false;
         return  \$this->has".$model."(\$model, \$".$model."->title) ? \$model->$plural :
             (\$model->".$plural."()->attach(\$$model) ?? \$model->$plural);
     }
@@ -206,7 +206,7 @@ class ".$model."Command
     public function firstOrCreate".$model."Internal(int|string $$model,string \$model_type = null): bool|Model|$model
     {
         return is_numeric($$model) ?
-              $model::query()->where(['id' => $$model])->first():
+              $model::query()->where(['id' => $$model])->first()?:false:
               $model::query()->firstOrCreate(['title' => $$model, 'model_type' => \$model_type]);
     }
 

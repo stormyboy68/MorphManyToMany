@@ -50,9 +50,11 @@ class $model extends Model
         parent::boot();
 
         static::creating(function (\$".$plural.") {
-            \$existing".ucfirst($plural)." = self::where('model_type', \$".$plural."->model_type)->exists();
+            \$existing".ucfirst($plural)." = self::query()
+                ->where('title',\$".$plural."->title)
+                ->where('model_type', \$".$plural."->model_type)->exists();
             if (\$existing".ucfirst($plural).") {
-                return false;
+                throw new \Exception('A category with this title for this model type already exists.');
             }
         });
     }
