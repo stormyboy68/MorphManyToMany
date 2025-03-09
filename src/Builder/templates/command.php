@@ -61,7 +61,6 @@ class ".$model."Command
      */
     public function assign$model(Model \$model, string|int \$$model): bool|Collection
     {
-        if(\$this->isTrashed(\$$model,get_class(\$model))) return false;
         \$$model = \$this->firstOrCreate".$model."Internal(\$$model,get_class(\$model));
         if(!\$$model && !\$$model instanceof $model) return false;
         \$model->".strtolower($plural)."()->sync(\$$model);
@@ -76,7 +75,6 @@ class ".$model."Command
      */
     public function add$model(Model \$model, string|int \$$model): bool|Collection
     {
-        if(\$this->isTrashed(\$$model,get_class(\$model))) return false;
         \$$model = \$this->firstOrCreate".$model."Internal(\$$model,get_class(\$model));
         if(!\$$model && !\$$model instanceof $model) return false;
         return  \$this->has".$model."(\$model, \$".$model."->title) ? \$model->$plural :

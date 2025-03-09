@@ -11,26 +11,7 @@ class MigrationBuilder
 {
     public static function handle($values)
     {
-        $res1 = self::makeBasic($values);
-        $res2 = self::makePivot($values);
-        return $res1 && $res2;
-    }
-
-    /**
-     * @param $values
-     * @return bool|resource
-     */
-    public static function makePivot($values)
-    {
-        extract($values);
-        $fileName = self::fileNameGenerate($values, true, 750);
-        $data = [
-            'model' => $model,
-            'relationName' => $relationName,
-            'fileName' => sprintf(BasePathMTM::Migration(), $model) . $fileName,
-            'txt' => include BasePathMTM::MigrationPivotTemplate,
-        ];
-        return File::handle($data);
+        return self::makeBasic($values);
     }
 
     /**
@@ -44,6 +25,7 @@ class MigrationBuilder
         $data = [
             'model' => $model,
             'plural' => $plural,
+            'relationName' => $relationName,
             'fileName' => sprintf(BasePathMTM::Migration(), $model) . $fileName,
             'txt' => include BasePathMTM::MigrationBasicTemplate,
         ];

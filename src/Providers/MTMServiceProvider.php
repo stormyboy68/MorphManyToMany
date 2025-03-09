@@ -30,7 +30,9 @@ class MTMServiceProvider extends ServiceProvider
     {
         if (file_exists(config_path('mtm.php')) && $providers=config('mtm.providers')) {
             foreach ($providers as $provider) {
-                $this->app->register($provider);
+                if(file_exists(base_path().$provider.'php')) {
+                    $this->app->register($provider);
+                }
             }
         }
     }

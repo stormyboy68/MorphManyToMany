@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;\n
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Rack\Morph\MTM\\$model\App\Observers\\".$model."Observer;
 
@@ -32,7 +33,7 @@ class $model extends Model
             " . ($uuid ? "\$table->uuid(\"id\")->unique();" : "\$table->id();") . "
             \$table->string('title');
             \$table->string('model_type');
-            \$table->unique(['title','model_type']);
+            \$table->unique(['title','model_type',DB::raw('(CASE WHEN deleted_at IS NULL THEN 1 ELSE NULL END)')]);
             \$table->softDeletes();
             \$table->timestamps();
         });
@@ -52,9 +53,11 @@ class $model extends Model
         static::creating(function (\$".$plural.") {
             \$existing".ucfirst($plural)." = self::query()
                 ->where('title',\$".$plural."->title)
-                ->where('model_type', \$".$plural."->model_type)->exists();
+                ->where('model_type', \$".$plural."->model_type)
+                ->where('deleted_at', null)
+                ->exists();
             if (\$existing".ucfirst($plural).") {
-                throw new \Exception('A category with this title for this model type already exists.');
+                throw new \Exception('A $model with this title for this model type already exists.');
             }
         });
     }

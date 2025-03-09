@@ -8,8 +8,7 @@ class BasePathMTM
 
     public const CommandTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'command.php';
     public const FacadeTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'facade.php';
-    public const MigrationBasicTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migrationBasic.php';
-    public const MigrationPivotTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migrationPivot.php';
+    public const MigrationBasicTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'migration.php';
     public const ModelTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'model.php';
     public const ObserverTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'observer.php';
     public const RequestTemplate = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Builder' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'request.php';
