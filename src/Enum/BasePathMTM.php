@@ -1,6 +1,6 @@
 <?php
 
-namespace ASB\MorphMTM\Exceptions\Enum;
+namespace ASB\MorphMTM\Enum;
 
 
 class BasePathMTM

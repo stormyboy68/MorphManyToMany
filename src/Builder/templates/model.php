@@ -10,12 +10,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;\n
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use ASB\\MorphMTM\\Traits\\HasMtmModel;
 use Rack\Morph\MTM\\$model\App\Observers\\".$model."Observer;
 
 #[ObservedBy([".$model."Observer::class])]
 class $model extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,HasMtmModel" . ($uuid ? ", HasUuids" : "") . ";
 
     protected \$hidden = [
         'pivot',
@@ -44,21 +45,6 @@ class $model extends Model
             " . ($uuid ? "\$table->foreignUuid(\"".strtolower($model)."_id\")" : "\$table->foreignId(\"".strtolower($model)."_id\")") ."
             ->constrained('$plural')->cascadeOnDelete()->cascadeOnUpdate();
             " . ($uuid ? "\$table->uuidMorphs('".strtolower($relationName)."');" : "\$table->morphs('".strtolower($relationName)."');") . "
-        });
-    }
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function (\$".$plural.") {
-            \$existing".ucfirst($plural)." = self::query()
-                ->where('title',\$".$plural."->title)
-                ->where('model_type', \$".$plural."->model_type)
-                ->where('deleted_at', null)
-                ->exists();
-            if (\$existing".ucfirst($plural).") {
-                throw new \Exception('A $model with this title for this model type already exists.');
-            }
         });
     }
 }";

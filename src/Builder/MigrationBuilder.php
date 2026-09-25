@@ -1,10 +1,10 @@
 <?php
 
-namespace ASB\MorphMTM\Exceptions\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphMTM\Exceptions\Enum\BasePathMTM;
-use ASB\MorphMTM\Exceptions\utility\CheckFile;
-use ASB\MorphMTM\Exceptions\utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\utility\CheckFile;
+use ASB\MorphMTM\utility\File;
 
 
 class MigrationBuilder

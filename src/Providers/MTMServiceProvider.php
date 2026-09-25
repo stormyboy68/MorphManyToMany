@@ -1,16 +1,14 @@
 <?php
 
-namespace ASB\MorphMTM\Exceptions\Providers;
+namespace ASB\MorphMTM\Providers;
 
 use ASB\MorphMTM\Console\Commands\UpgradeUniqueCommand;
-use ASB\MorphMTM\Exceptions\Console\Commands\build;
-use ASB\MorphMTM\Exceptions\Console\Commands\Remove;
-use ASB\MorphMTM\Exceptions\Utility\Map;
-use ASB\MorphMTM\Exceptions\Utility\Json;
+use ASB\MorphMTM\Console\Commands\build;
+use ASB\MorphMTM\Console\Commands\Remove;
+use ASB\MorphMTM\Utility\Map;
+use ASB\MorphMTM\Utility\Json;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-
-
 
 class MTMServiceProvider extends ServiceProvider
 {
@@ -26,11 +24,12 @@ class MTMServiceProvider extends ServiceProvider
         $this->setMAP();
         $this->publishes([
             __DIR__.'/../config/mtm.php' => config_path('mtm.php'),
-        ],'morph-mtm-config');
+        ], 'morph-mtm-config');
     }
+
     public function register(): void
     {
-        if (file_exists(config_path('mtm.php')) && $providers=config('mtm.providers')) {
+        if (file_exists(config_path('mtm.php')) && $providers = config('mtm.providers')) {
             foreach ($providers as $provider) {
                 if (class_exists($provider)) {
                     $this->app->register($provider);

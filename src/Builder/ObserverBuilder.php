@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphMTM\Exceptions\Builder;
+namespace ASB\MorphMTM\Builder;
 
-use ASB\MorphMTM\Exceptions\Enum\BasePathMTM;
-use ASB\MorphMTM\Exceptions\Utility\File;
+use ASB\MorphMTM\Enum\BasePathMTM;
+use ASB\MorphMTM\Utility\File;
 
 class ObserverBuilder
 {

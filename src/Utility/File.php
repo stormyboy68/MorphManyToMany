@@ -1,8 +1,8 @@
 <?php
 
-namespace ASB\MorphMTM\Exceptions\Utility;
+namespace ASB\MorphMTM\Utility;
 
-use ASB\MorphMTM\Exceptions\Enum\BasePathMTM;
+use ASB\MorphMTM\Enum\BasePathMTM;
 
 class File
 {

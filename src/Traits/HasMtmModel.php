@@ -55,7 +55,9 @@ trait HasMtmModel
             (int) config('mtm.lock.timeout', 10)
         );
 
-        if (! $lock->block((int) config('mtm.lock.wait', 3))) {
+        try {
+            $lock->block((int) config('mtm.lock.wait', 3));
+        } catch (\Illuminate\Contracts\Cache\LockTimeoutException $e) {
             throw DuplicateMtmModelException::lockFailed($title);
         }
 
@@ -92,8 +94,10 @@ trait HasMtmModel
                 (int) config('mtm.lock.timeout', 10)
             );
 
-            if (! $lock->block((int) config('mtm.lock.wait', 3))) {
-                throw DuplicateMtmModelException::lockFailed($newTitle);
+            try {
+                $lock->block((int) config('mtm.lock.wait', 3));
+            } catch (\Illuminate\Contracts\Cache\LockTimeoutException $e) {
+                throw DuplicateMtmModelException::lockFailed($this->title);
             }
 
             try {
@@ -132,7 +136,9 @@ trait HasMtmModel
                 (int) config('mtm.lock.timeout', 10)
             );
 
-            if (! $lock->block((int) config('mtm.lock.wait', 3))) {
+            try {
+                $lock->block((int) config('mtm.lock.wait', 3));
+            } catch (\Illuminate\Contracts\Cache\LockTimeoutException $e) {
                 throw DuplicateMtmModelException::lockFailed($this->title);
             }
 
