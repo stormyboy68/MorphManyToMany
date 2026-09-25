@@ -7,7 +7,7 @@ This package provides you with a module to automatically files need (Model, Migr
 Morph many-to-many relations to your project along with commonly used basic commands.
 which minimizes the trial and error operation for you.
 
-![][rel]
+[rel]: ./img/rel.png
 
 ## how to use this package :
 
