@@ -13,8 +13,8 @@ return new class extends Migration
     }
     public function down(): void
     {
-        Schema::dropIfExists(\"$plural\");
         Schema::dropIfExists('".strtolower($pluralRelation)."');
+        Schema::dropIfExists(\"$plural\");
     }
 };
 ";

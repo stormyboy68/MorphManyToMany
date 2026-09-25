@@ -1,9 +1,9 @@
 <?php
 
-namespace ASB\MorphMTM\Builder;
+namespace ASB\MorphMTM\Exceptions\Builder;
 
-use ASB\MorphMTM\Enum\BasePathMTM;
-use ASB\MorphMTM\Utility\File;
+use ASB\MorphMTM\Exceptions\Enum\BasePathMTM;
+use ASB\MorphMTM\Exceptions\Utility\File;
 
 class ProviderBuilder
 {

@@ -33,7 +33,7 @@ class $model extends Model
             " . ($uuid ? "\$table->uuid(\"id\")->unique();" : "\$table->id();") . "
             \$table->string('title');
             \$table->string('model_type');
-            \$table->unique(['title','model_type',DB::raw('(CASE WHEN deleted_at IS NULL THEN 1 ELSE NULL END)')]);
+            \$table->index(['title', 'model_type', 'deleted_at']);
             \$table->softDeletes();
             \$table->timestamps();
         });

@@ -1,12 +1,12 @@
 <?php
 
-namespace ASB\MorphMTM\Console\Commands;
+namespace ASB\MorphMTM\Exceptions\Console\Commands;
 
-use ASB\MorphMTM\Builder\operation\Provider;
-use ASB\MorphMTM\Utility\CheckFile;
-use ASB\MorphMTM\Enum\BasePathMTM;
-use ASB\MorphMTM\Utility\File;
-use ASB\MorphMTM\Utility\Json;
+use ASB\MorphMTM\Exceptions\Builder\operation\Provider;
+use ASB\MorphMTM\Exceptions\Utility\CheckFile;
+use ASB\MorphMTM\Exceptions\Enum\BasePathMTM;
+use ASB\MorphMTM\Exceptions\Utility\File;
+use ASB\MorphMTM\Exceptions\Utility\Json;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 

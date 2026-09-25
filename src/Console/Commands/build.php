@@ -1,22 +1,22 @@
 <?php
 
-namespace ASB\MorphMTM\Console\Commands;
+namespace ASB\MorphMTM\Exceptions\Console\Commands;
 
 
-use ASB\MorphMTM\Builder\CommandBuilder;
-use ASB\MorphMTM\Builder\ControllerBuilder;
-use ASB\MorphMTM\Builder\FacadeBuilder;
-use ASB\MorphMTM\Builder\MigrationBuilder;
-use ASB\MorphMTM\Builder\ModelBuilder;
-use ASB\MorphMTM\Builder\ObserverBuilder;
-use ASB\MorphMTM\Builder\operation\Provider;
-use ASB\MorphMTM\Builder\ProviderBuilder;
-use ASB\MorphMTM\Builder\RequestBuilder;
-use ASB\MorphMTM\Builder\RouteBuilder;
-use ASB\MorphMTM\Builder\TraitBuilder;
-use ASB\MorphMTM\Enum\BasePathMTM;
-use ASB\MorphMTM\Utility\CheckFile;
-use ASB\MorphMTM\Utility\File;
+use ASB\MorphMTM\Exceptions\Builder\CommandBuilder;
+use ASB\MorphMTM\Exceptions\Builder\ControllerBuilder;
+use ASB\MorphMTM\Exceptions\Builder\FacadeBuilder;
+use ASB\MorphMTM\Exceptions\Builder\MigrationBuilder;
+use ASB\MorphMTM\Exceptions\Builder\ModelBuilder;
+use ASB\MorphMTM\Exceptions\Builder\ObserverBuilder;
+use ASB\MorphMTM\Exceptions\Builder\operation\Provider;
+use ASB\MorphMTM\Exceptions\Builder\ProviderBuilder;
+use ASB\MorphMTM\Exceptions\Builder\RequestBuilder;
+use ASB\MorphMTM\Exceptions\Builder\RouteBuilder;
+use ASB\MorphMTM\Exceptions\Builder\TraitBuilder;
+use ASB\MorphMTM\Exceptions\Enum\BasePathMTM;
+use ASB\MorphMTM\Exceptions\Utility\CheckFile;
+use ASB\MorphMTM\Exceptions\Utility\File;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Support\Str;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ASB\MorphMTM\Builder\operation;
+namespace ASB\MorphMTM\Exceptions\Builder\operation;
 
 use Illuminate\Support\Collection;
 

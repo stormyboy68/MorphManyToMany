@@ -1,6 +1,6 @@
 <?php
 
-namespace ASB\MorphMTM\Utility;
+namespace ASB\MorphMTM\Exceptions\Utility;
 
 class Map
 {
