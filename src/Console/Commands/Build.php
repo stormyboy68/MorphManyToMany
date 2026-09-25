@@ -21,7 +21,7 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Support\Str;
 
-class build extends Command implements PromptsForMissingInput
+class Build extends Command implements PromptsForMissingInput
 {
     /**
      * The name and signature of the console command.
